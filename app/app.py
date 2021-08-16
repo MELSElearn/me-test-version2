@@ -27,13 +27,13 @@ def hello():
         np_arr = floats_string_to_np_arr(text)
         predictions = model.predict(np_arr.reshape(-1,1))
            
-        list1 = predictions.tolist()
-        list1_str = ''
-        for x in list1:
-            list1_str = list1_str + str(math.trunc(x)) + ','
+        #list1 = predictions.tolist()
+        #list1_str = ''
+        #for x in list1:
+        #    list1_str = list1_str + str(math.trunc(x)) + ','
 
-        predictions_to_str = str(list1_str[:-1])
-        
+        #predictions_to_str = str(list1_str[:-1])
+        predictions_to_str = str(predictions)
         make_picture('housing_small.csv', model, np_arr, path)
         
         #return predictions_to_str
