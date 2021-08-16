@@ -5,14 +5,13 @@ import pandas as pd
 from joblib import load
 import uuid
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-import math
+#from sklearn.linear_model import LinearRegression
+#import math
 
 app = Flask(__name__)
-#run_with_ngrok(app)
+
 
 @app.route('/', methods=['GET', 'POST'])
-#@app.route('/entry', methods=['GET', 'POST'])
 def hello():
     request_type_str = request.method
     
@@ -71,8 +70,3 @@ def floats_string_to_np_arr(floats_str):
       return False
   floats = np.array([float(x) for x in floats_str.split(',') if is_float(x)])
   return floats.reshape(len(floats), 1)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-#if __name__ == '__main__':
-#  app.run()
