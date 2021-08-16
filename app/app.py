@@ -61,7 +61,7 @@ def make_picture(training_data_filename,model,new_input_arr, output_file):
     #plt.savefig(output_file)
     #plt.show()
     
-    x_new = np.array(list(range(19))).reshape(19, 1)
+    
     preds = model.predict(incomes.values.reshape(-1,1))
 
     fig = px.scatter(x=incomes, y=housevalues, title="Income vs House value", labels={'x': 'Income (10k)',
