@@ -41,7 +41,7 @@ def hello():
         return render_template('index.html', href=path, href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
 
 
-def make_picture(training_data_filename,model,new_input_arr, output_file='predictions_pic.svg'):
+def make_picture(training_data_filename,model,new_input_arr, output_file):
     housing_data = pd.read_csv(training_data_filename)
     incomes = housing_data['median_income']
     housevalues = housing_data['median_house_value'] 
