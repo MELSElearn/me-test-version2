@@ -24,6 +24,7 @@ def hello():
         text = request.form['text']
         random_string = uuid.uuid4().hex
         path = "app/static/" + random_string + ".svg"
+        oripath = "static/base_pic.svg"
         model = load('app/HousingLinear.joblib')
         np_arr = floats_string_to_np_arr(text)
         predictions = model.predict(np_arr.reshape(-1,1))
@@ -38,7 +39,7 @@ def hello():
         make_picture('app/housing_small.csv', model, np_arr, path)
         
         
-        return render_template('index.html', href=path, href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
+        return render_template('index.html', href=oripath, href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
         #return render_template('index.html', href='static/base_pic.svg', href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
 
 def make_picture(training_data_filename,model,new_input_arr, output_file):
