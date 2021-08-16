@@ -23,8 +23,8 @@ def hello():
         
         text = request.form['text']
         random_string = uuid.uuid4().hex
-        path = "static/" + random_string + ".svg"
-        model = load('HousingLinear.joblib')
+        path = "app/static/" + random_string + ".svg"
+        model = load('app/HousingLinear.joblib')
         np_arr = floats_string_to_np_arr(text)
         predictions = model.predict(np_arr.reshape(-1,1))
            
@@ -35,7 +35,7 @@ def hello():
 
         predictions_to_str = str(predictions)
         
-        make_picture('housing_small.csv', model, np_arr, path)
+        make_picture('app/housing_small.csv', model, np_arr, path)
         
         #return predictions_to_str
         return render_template('index.html', href=path, href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
