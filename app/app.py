@@ -37,44 +37,43 @@ def hello():
         
         make_picture('app/housing_small.csv', model, np_arr, path)
         
-        #return predictions_to_str
-        return render_template('index.html', href=path, href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
-
+        
+        #return render_template('index.html', href=path, href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
+        return render_template('index.html', href='static/base_pic.svg', href2='The suitable house for values ('+ text +')' +' is:'+predictions_to_str)
 
 def make_picture(training_data_filename,model,new_input_arr, output_file):
     housing_data = pd.read_csv(training_data_filename)
     incomes = housing_data['median_income']
     housevalues = housing_data['median_house_value'] 
 
-    #predictions = model.predict(incomes.values.reshape(-1,1))
-    #plt.plot(incomes, predictions, label = 'Linear Regression', color = 'b', alpha = .7)
-    #plt.scatter(incomes, housevalues, label = 'Actual Test Data', color ='g', alpha = .7)
-    #plt.legend
-    #plt.xlabel('median income(10k)')
-    #plt.ylabel('median house value')
+    predictions = model.predict(incomes.values.reshape(-1,1))
+    plt.plot(incomes, predictions, label = 'Linear Regression', color = 'b', alpha = .7)
+    plt.scatter(incomes, housevalues, label = 'Actual Test Data', color ='g', alpha = .7)
+    plt.legend
+    plt.xlabel('median income(10k)')
+    plt.ylabel('median house value')
+        
+    new_pred = model.predict(new_input_arr)
+    plt.scatter(new_input_arr, new_pred, label = 'Actual Test Data', color ='r', alpha = .7)
+    
+    plt.tight_layout()
+    plt.savefig(output_file)
+    plt.show()
     
     
-    #new_pred = model.predict(new_input_arr)
-    #plt.scatter(new_input_arr, new_pred, label = 'Actual Test Data', color ='r', alpha = .7)
-    
-    #plt.tight_layout()
-    #plt.savefig(output_file)
-    #plt.show()
-    
-    
-    preds = model.predict(incomes.values.reshape(-1,1))
+    #preds = model.predict(incomes.values.reshape(-1,1))
 
-    fig = px.scatter(x=incomes, y=housevalues, title="Income vs House value", labels={'x': 'Income (10k)',
+    #fig = px.scatter(x=incomes, y=housevalues, title="Income vs House value", labels={'x': 'Income (10k)',
                                                                                     'y': 'House value'})
 
-    fig.add_trace(go.Scatter(x=incomes.values.reshape(-1,1), y=preds, mode='lines', name='Model'))
+    #fig.add_trace(go.Scatter(x=incomes.values.reshape(-1,1), y=preds, mode='lines', name='Model'))
 
-    new_preds = model.predict(new_inp_np_arr)
+    #new_preds = model.predict(new_inp_np_arr)
 
-    fig.add_trace(go.Scatter(x=new_inp_np_arr.reshape(len(new_inp_np_arr)), y=new_preds, name='New Outputs', mode='markers', marker=dict(color='purple', size=20, line=dict(color='purple', width=2))))
+    #fig.add_trace(go.Scatter(x=new_inp_np_arr.reshape(len(new_inp_np_arr)), y=new_preds, name='New Outputs', mode='markers', marker=dict(color='purple', size=20, line=dict(color='purple', width=2))))
 
-    fig.write_image(output_file, width=800, engine='kaleido')
-    fig.show()
+    #fig.write_image(output_file, width=800, engine='kaleido')
+    #fig.show()
     
     
 def floats_string_to_np_arr(floats_str):
